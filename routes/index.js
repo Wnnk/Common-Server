@@ -5,8 +5,6 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-
-
 const uploadDir = path.join(__dirname, "../uploads");
 const storage = multer.memoryStorage();
 
@@ -35,22 +33,23 @@ router.post("/upload", upload.single("chunk"), (req, res) => {
     totalChunks: parseInt(req.body.totalChunks),
   };
 
-   // 将片段保存到数组中
-  chunks.push({ buffer: chunkBuffer,index: chunkInfo.index })
+  // 将片段保存到数组中
+  chunks.push({ buffer: chunkBuffer, index: chunkInfo.index });
 
   //  // 如果所有片段都已上传，进行合并
   if (chunks.length === chunkInfo.totalChunks) {
     const sortedChunks = chunks.sort((a, b) => a.index - b.index);
-    const mergedBuffer = Buffer.concat(sortedChunks.map(chunk => chunk.buffer));
-   
+    const mergedBuffer = Buffer.concat(
+      sortedChunks.map((chunk) => chunk.buffer)
+    );
+
     try {
       // 将合并后的文件写入磁盘
-    fs.writeFileSync(path.join(uploadDir, chunkInfo.fileName), mergedBuffer);
+      fs.writeFileSync(path.join(uploadDir, chunkInfo.fileName), mergedBuffer);
     } catch (err) {
       console.error("Error writing file:", err);
-      return res.status(500).send("Error writing file to disk.",err);
+      return res.status(500).send("Error writing file to disk.", err);
     }
-    
 
     // 清空片段数组
     chunks.length = 0;
@@ -67,6 +66,10 @@ router.post("/upload", upload.single("chunk"), (req, res) => {
   });
 });
 
-router.get("/api/getEchart",EchartControler.getEchart)
+router.get("/api/getEchart", EchartControler.getEchart);
+
+const testController = require("../controllers/testController");
+router.post("/api/test", testController.test);
+router.get("/api/getMoreData", testController.getMoreData);
 
 module.exports = router;
