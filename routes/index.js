@@ -67,14 +67,14 @@ router.post("/upload", upload.single("chunk"), (req, res) => {
 });
 
 router.get("/api/getEchart", EchartControler.getEchart);
+router.get("/api/getBigData", EchartControler.getBigData);
 
 const testController = require("../controllers/testController");
 router.post("/api/test", testController.test);
 router.get("/api/getMoreData", testController.getMoreData);
 
-
 const realtimeEchartController = require("../controllers/realtimeEchartController");
-router.get('/api/events', realtimeEchartController.openSSE);
+router.get("/api/events", realtimeEchartController.openSSE);
 
 const selectController = require("../controllers/selectController");
 router.get("/api/getSelectData", selectController.getSelectData);

@@ -4,10 +4,23 @@ exports.getEchart = function (req, res) {
   const { start, end } = req.query;
   const limitData = data.slice(start, end);
 
-  return res.json({
-    data: limitData,
-    code: 2000,
-  });
+  setTimeout(() => {
+    return res.json({
+      data: limitData,
+      code: 2000,
+    });
+  }, 2000);
+};
+
+exports.getBigData = function (req, res) {
+  let total = 200000;
+  let data = timeFn(total);
+  setTimeout(() => {
+    return res.json({
+      data: data,
+      code: 2000,
+    });
+  }, 2000);
 };
 
 const timeFn = (total) => {
