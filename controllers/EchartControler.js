@@ -13,7 +13,7 @@ exports.getEchart = function (req, res) {
 };
 
 exports.getBigData = function (req, res) {
-  let total = 200000;
+  let total = 80000;
   let data = timeFn(total);
   setTimeout(() => {
     return res.json({
