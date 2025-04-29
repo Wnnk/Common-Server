@@ -13,8 +13,10 @@ exports.getEchart = function (req, res) {
 };
 
 exports.getBigData = function (req, res) {
+  res.header("Cache-Control", "public, max-age=20");
   let total = 80000;
   let data = timeFn(total);
+  console.log("get big data");
   setTimeout(() => {
     return res.json({
       data: data,
