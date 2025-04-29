@@ -79,4 +79,11 @@ router.get("/api/events", realtimeEchartController.openSSE);
 const selectController = require("../controllers/selectController");
 router.get("/api/getSelectData", selectController.getSelectData);
 
+const tableController = require("../controllers/TableController");
+router.get("/api/equipment", tableController.createTable);
+
+const AbortController = require("../controllers/AbortController")
+router.get("/api/testAbort1", AbortController.testAbort1)
+router.get("/api/testAbort2", AbortController.testAbort2)
+
 module.exports = router;
